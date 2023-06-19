@@ -1,0 +1,35 @@
+    AREA PROG, CODE, READONLY
+N RN 1
+FACT RN 2
+ENTRY
+    MOV N, #10
+    MOV FACT, #1
+LOOP
+    MUL FACT, N, FACT
+    SUBS N, N, #1
+    BNE LOOP
+GO  B GO
+    END
+
+
+    AREA PROG, CODE, READONLY
+N RN 1
+ENTRY
+    MOV N, #10
+    LDR R5, =TABLE
+    MOV R2, #0
+    STRB R2, [R5], #1
+    MOV R3, #1
+    STRB R3, [R5], #1
+    MOV R4, #2
+LOOP
+    ADD R6, R2, R3
+    MOV R2, R3
+    MOV R3, R6
+    STRB R3, [R5], #1
+    ADD R4, R4, #1
+    CMP R4, N
+    BNE LOOP
+STOP B STOP
+TABLE SPACE 60
+    END

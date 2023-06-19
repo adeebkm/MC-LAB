@@ -1,0 +1,26 @@
+    AREA SUM, CODE, READONLY
+Q RN 3
+R RN 4
+RES RN 5
+DV RN 1
+DS RN 2
+ENTRY
+    MOV DV, #12
+    MOV DS, #10
+    MOV RES, #0
+LOOP
+    BL DIV
+    ADD RES, R, RES
+    CMP Q, #0
+    MOV DV, Q
+    BNE LOOP
+STOP B STOP
+DIV
+    MOV Q, #0
+LOOP2
+    SUBS DV, DV, DS
+    ADDPL Q, Q, #1
+    BPL LOOP2
+    ADDMI R, DV, DS
+    MOV PC, LR
+    END
